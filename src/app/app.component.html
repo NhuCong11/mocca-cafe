@@ -1,1 +1,40 @@
-<h1>Hello Mocca Cafe</h1>
+<h1 [class.active]="isDiscoloration">{{ heading }}</h1>
+<input
+  type="text"
+  name=""
+  id=""
+  [(ngModel)]="heading"
+  *ngIf="isDiscoloration"
+/>
+<button (click)="handleDiscoloration()">Turn Green</button>
+<div [ngSwitch]="errorCode">
+  <p *ngSwitchCase="404">404 Not Found</p>
+  <p *ngSwitchCase="403">403 Forbidden</p>
+  <p *ngSwitchCase="405">405 Method Not Allow</p>
+</div>
+<h2>DS Sinh Viên</h2>
+<hr />
+<table border="1" cellSpacing="0">
+  <thead>
+    <tr>
+      <th>STT</th>
+      <th>Họ tên</th>
+      <th>Hình ảnh</th>
+      <th>Tài sản</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let student of students; let index = index">
+      <td>{{ index + 1 }}</td>
+      <td>{{ student.name }}</td>
+      <td>
+        <img
+          style="width: 200px; height: 200px; object-fit: cover"
+          src="{{ student.avatar }}"
+          alt="Avatar"
+        />
+      </td>
+      <td>{{ student.asset | currency : " " }} VNĐ</td>
+    </tr>
+  </tbody>
+</table>
