@@ -1,12 +1,18 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, FormsModule, CommonModule],
+  imports: [RouterOutlet, FormsModule, CommonModule, ReactiveFormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
@@ -17,20 +23,27 @@ export class AppComponent {
   errorCode: number = 404;
   students: Array<any> = [
     {
-      name: 'Đinh Quang Anh',
-      avatar:
-        'https://images.unsplash.com/photo-1636041246170-9278569b9c36?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      asset: 10000000,
+      email: 'quanganh@gmail.com',
+      password: 'quanganh123',
     },
     {
-      name: 'Hoàng Mạnh Hùng',
-      avatar:
-        'https://images.unsplash.com/photo-1544724107-6d5c4caaff30?q=80&w=2067&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      asset: 2000000,
+      email: 'hmh03@gmail.com',
+      password: 'hung123',
     },
   ];
 
+  loginForm: FormGroup = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required]),
+  });
+
   handleDiscoloration() {
     this.isDiscoloration = !this.isDiscoloration;
+  }
+
+  handleSubmit() {
+    if (this.loginForm.invalid) return;
+    this.students.push(this.loginForm.value);
+    this.loginForm.reset();
   }
 }
